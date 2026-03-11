@@ -29,4 +29,3 @@ test flows and scenario-based testing.
 - Understanding user flows
 
 
-https://github-readme-stats.vercel.app/api?username=zaferckr&show_icons=true&theme=radical
