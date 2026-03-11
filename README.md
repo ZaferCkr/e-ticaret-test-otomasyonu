@@ -27,3 +27,6 @@ test flows and scenario-based testing.
 - Test automation fundamentals
 - Designing test scenarios
 - Understanding user flows
+
+
+https://github-readme-stats.vercel.app/api?username=zaferckr&show_icons=true&theme=radical
