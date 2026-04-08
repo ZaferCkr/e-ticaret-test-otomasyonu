@@ -11,9 +11,12 @@ import pytest
 @pytest.fixture
 def driver():
     options = Options()
-    options.add_argument("--headless")  # görünmez çalıştırmak için
-    service = Service(executable_path=r"C:\Users\zafer\OneDrive\Masaüstü\chromedriver-win64\chromedriver.exe")  # chromedriver yolunu buraya yaz
-    driver = webdriver.Chrome(service=service, options=options)
+    options.add_argument("--headless")  # Replit'te ekran olmadığı için şart
+    options.add_argument("--no-sandbox")  # Yetki hatalarını önler
+    options.add_argument("--disable-dev-shm-usage")  # Bellek sorunlarını önler
+
+    # Selenium 4.x sürümü ile Service içine yol yazmaya gerek kalmadı, otomatik hallediyor
+    driver = webdriver.Chrome(options=options)
     yield driver
     driver.quit()
 
@@ -25,7 +28,9 @@ def test_homepage_title(driver):
 
 def test_homepage_logo_visible(driver):
     driver.get("https://automationexercise.com")
-    logo = driver.find_element(By.XPATH, "//img[@alt='Website for automation practice']")
+    logo = driver.find_element(
+        By.XPATH, "//img[@alt='Website for automation practice']"
+    )
     assert logo.is_displayed()
 
 
@@ -34,9 +39,7 @@ def test_navigation_to_login(driver):
     login_link = driver.find_element(By.XPATH, "//a[@href='/login']")
     login_link.click()
 
-    WebDriverWait(driver, 5).until(
-        EC.url_contains("/login")
-    )
+    WebDriverWait(driver, 5).until(EC.url_contains("/login"))
 
     assert "Login" in driver.page_source or "Signup" in driver.page_source
 
